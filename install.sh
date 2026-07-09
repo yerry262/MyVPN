@@ -284,11 +284,13 @@ EOF
     $SUDO wg-quick up "$IFACE"  # non-systemd WSL: add to your startup yourself
   fi
 
+  # the hub's sync timer runs every 2 min — allow for a full cycle plus slack
+  log "waiting for first handshake (hub registers us within ~2 min)..."
   local tries=0
   until [ "$($SUDO wg show "$IFACE" latest-handshakes | awk '{print $2}')" -gt 0 ] 2>/dev/null; do
     tries=$((tries + 1))
-    [ "$tries" -gt 15 ] && die "no handshake after 30s — check firewall/endpoint, then: sudo wg show $IFACE"
-    sleep 2
+    [ "$tries" -gt 70 ] && die "no handshake after 3.5 min — check firewall/endpoint, then: sudo wg show $IFACE"
+    sleep 3
   done
   ping -c 2 -W 3 "$HUB_WG_IP" >/dev/null || die "handshake OK but hub unreachable — routing issue?"
 

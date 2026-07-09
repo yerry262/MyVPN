@@ -31,7 +31,7 @@ for f in "$REPO"/approved-peers/*.json; do
     log "REFUSED $name: signature invalid against pinned signer key"
     continue
   fi
-  if ! psk="$(age -d -i "$AGE_KEY" "$f.psk.age" 2>/dev/null)"; then
+  if ! psk="$(age -d -i "$AGE_KEY" "${f%.json}.psk.age" 2>/dev/null)"; then
     log "REFUSED $name: PSK decryption failed"
     continue
   fi
