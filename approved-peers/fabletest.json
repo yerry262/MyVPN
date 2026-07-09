@@ -5,5 +5,6 @@
   "age_recipient": "age1na8hh75ms5v0s5ftft96542ewwxxdu4e0cysptw34a2dnc3rucsqmna6xw",
   "endpoint_type": "lan",
   "os": "Ubuntu 26.04 LTS",
-  "requested_at": "2026-07-09T15:20:19-05:00"
+  "requested_at": "2026-07-09T15:20:19-05:00",
+  "approved_at": "2026-07-09T15:20:59-05:00"
 }
