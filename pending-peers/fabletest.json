@@ -1,0 +1,9 @@
+{
+  "name": "fabletest",
+  "wg_ip": "10.44.0.6",
+  "wg_pubkey": "SqxX2PzFiizmNgemsM62iibm2v+MFtIkq9hRVVEk+0A=",
+  "age_recipient": "age1na8hh75ms5v0s5ftft96542ewwxxdu4e0cysptw34a2dnc3rucsqmna6xw",
+  "endpoint_type": "lan",
+  "os": "Ubuntu 26.04 LTS",
+  "requested_at": "2026-07-09T15:20:19-05:00"
+}
