@@ -1,0 +1,7 @@
+# belt-and-braces: no private material, ever
+*.key
+*.psk
+*.conf
+!hub/*.conf
+myvpn-signer
+age.key

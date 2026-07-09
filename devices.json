@@ -1,0 +1,45 @@
+{
+  "network": "10.44.0.0/24",
+  "devices": [
+    {
+      "name": "spotifypi",
+      "wg_ip": "10.44.0.1",
+      "role": "hub",
+      "wg_pubkey": "Hvf1M9LHzxpoCmy6MjLT06VwK0a5sqLr+AfXWL2hhyA=",
+      "endpoint_type": "hub",
+      "added": "2026-07-08"
+    },
+    {
+      "name": "legion",
+      "wg_ip": "10.44.0.2",
+      "role": "spoke",
+      "wg_pubkey": "7bVSPVxuCcKMF8buEzgfVUj3MLO2C8F3KA074bRaFik=",
+      "endpoint_type": "ddns",
+      "added": "2026-07-08"
+    },
+    {
+      "name": "tank",
+      "wg_ip": "10.44.0.3",
+      "role": "spoke",
+      "wg_pubkey": "VNutCOG8RnP0wHGV0f/KNuJuwtRyQ6AC0oLWGrRcXmE=",
+      "endpoint_type": "lan",
+      "added": "2026-07-08"
+    },
+    {
+      "name": "ethereum-node",
+      "wg_ip": "10.44.0.4",
+      "role": "spoke",
+      "wg_pubkey": "8O0HtcKTEf8CAAM8t2egbY5S31Bw8Xl86mnd3HjSImo=",
+      "endpoint_type": "lan",
+      "added": "2026-07-08"
+    },
+    {
+      "name": "euro-laptop",
+      "wg_ip": "10.44.0.5",
+      "role": "spoke",
+      "wg_pubkey": "zQCwl2T+KVNBTjptzZzu1F6yQMiT8RMDICW3d8Z8d3E=",
+      "endpoint_type": "ddns",
+      "added": "2026-07-09"
+    }
+  ]
+}

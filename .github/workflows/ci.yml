@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          shellcheck install.sh approve.sh hub/install-hub.sh hub/myvpn-sync.sh test/test-crypto-roundtrip.sh
+      - name: bash syntax
+        run: for f in install.sh approve.sh hub/*.sh test/*.sh; do bash -n "$f"; done
+      - name: validate JSON registry
+        run: |
+          jq -e '.devices | length > 0' devices.json
+          jq -e '.devices | map(.wg_ip) | length == (unique | length)' devices.json  # no duplicate IPs
+          jq -e '.devices | map(.wg_pubkey) | length == (unique | length)' devices.json
+          for f in pending-peers/*.json approved-peers/*.json; do
+            [ -e "$f" ] || continue
+            jq -e '.name and .wg_ip and .wg_pubkey and .age_recipient' "$f" >/dev/null
+          done
+      - name: crypto round-trip tests
+        run: |
+          sudo apt-get install -y -qq age
+          ./test/test-crypto-roundtrip.sh
