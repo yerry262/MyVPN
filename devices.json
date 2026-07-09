@@ -40,14 +40,6 @@
       "wg_pubkey": "zQCwl2T+KVNBTjptzZzu1F6yQMiT8RMDICW3d8Z8d3E=",
       "endpoint_type": "ddns",
       "added": "2026-07-09"
-    },
-    {
-      "name": "fabletest",
-      "wg_ip": "10.44.0.6",
-      "wg_pubkey": "SqxX2PzFiizmNgemsM62iibm2v+MFtIkq9hRVVEk+0A=",
-      "endpoint_type": "lan",
-      "role": "spoke",
-      "added": "2026-07-09"
     }
   ]
 }
