@@ -40,6 +40,25 @@ git clone https://github.com/yerry262/MyVPN; cd MyVPN; .\install.ps1   # as Admi
 
 > **UNTESTED** so far on real Windows — WSL boxes should use `install.sh`.
 
+## Optional: mount shared storage after connecting
+
+Once your device has joined and the tunnel is up, tank (`10.44.0.3`) shares a
+9.1TB drive over SSH — no separate credentials needed beyond your own
+approved mesh SSH key:
+
+```bash
+# Linux / WSL
+sshfs jerry@10.44.0.3:/mnt/d <mountpoint>
+```
+
+For persistence across reboots, add an `/etc/fstab` entry with
+`noauto,x-systemd.automount,_netdev,reconnect` (see any mesh box's
+`CLAUDE.md` for a working example).
+
+On native Windows, install [WinFsp](https://github.com/winfsp/winfsp) +
+[SSHFS-Win](https://github.com/winfsp/sshfs-win) to mount it as a drive
+letter instead.
+
 ## Approve (Legion only)
 
 ```bash
