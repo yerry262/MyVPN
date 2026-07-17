@@ -40,6 +40,14 @@
       "wg_pubkey": "zQCwl2T+KVNBTjptzZzu1F6yQMiT8RMDICW3d8Z8d3E=",
       "endpoint_type": "ddns",
       "added": "2026-07-09"
+    },
+    {
+      "name": "china",
+      "wg_ip": "10.44.0.10",
+      "role": "spoke",
+      "wg_pubkey": "eFZiCZZsdQRke9JnlI4W0wl73Nxv9H0Xbf0XwtI9WUA=",
+      "endpoint_type": "lan",
+      "added": "2026-07-16"
     }
   ]
 }
