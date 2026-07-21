@@ -1,0 +1,40 @@
+name: Mesh status cron
+
+# SECURITY: schedule + workflow_dispatch ONLY. This repo accepts join-request
+# PRs from strangers (see pr-validate.yml) — this job runs on a self-hosted
+# runner living on the hub (spotifypi), so it must NEVER trigger on
+# pull_request or pull_request_target. That would let an untrusted PR run
+# arbitrary code on real home infrastructure. Do not add those triggers.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mesh-status-cron
+  cancel-in-progress: false
+
+jobs:
+  publish-status:
+    runs-on: [self-hosted, myvpn-hub]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute status.json from live wg state
+        run: |
+          sudo wg show wg0 dump | python3 scripts/compute_status.py devices.json > /tmp/status.json
+          cat /tmp/status.json
+
+      - name: Publish to orphan status branch
+        run: |
+          git config user.name "myvpn-status-bot"
+          git config user.email "myvpn-status@spotifypi.local"
+          git checkout --orphan status-tmp
+          git rm -rf . --quiet
+          cp /tmp/status.json status.json
+          git add status.json
+          git commit -q -m "status update $(date -u -Iseconds)"
+          git push --force origin status-tmp:status
