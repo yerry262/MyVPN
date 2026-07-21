@@ -39,8 +39,15 @@ def parse_wg_dump(dump_text):
 def compute_status(devices, handshake_by_pubkey, now):
     status = []
     for device in devices:
-        handshake = handshake_by_pubkey.get(device["wg_pubkey"], 0)
-        online = handshake > 0 and (now - handshake) < ONLINE_THRESHOLD_SECONDS
+        if device.get("role") == "hub":
+            # The hub never appears as a peer in its own `wg show` dump —
+            # peers are other devices connecting to it, not itself. This
+            # script only runs when the hub's wg0 is up, so it's online
+            # by definition whenever this ran at all.
+            online = True
+        else:
+            handshake = handshake_by_pubkey.get(device["wg_pubkey"], 0)
+            online = handshake > 0 and (now - handshake) < ONLINE_THRESHOLD_SECONDS
         status.append({"name": device["name"], "online": online})
     return status
 

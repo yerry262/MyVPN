@@ -10,6 +10,7 @@ trap 'rm -rf "$tmp"' EXIT
 cat > "$tmp/devices.json" <<'EOF'
 {
   "devices": [
+    {"name": "spotifypi", "role": "hub", "wg_pubkey": "HUB0"},
     {"name": "legion", "wg_pubkey": "AAAA"},
     {"name": "tank", "wg_pubkey": "BBBB"},
     {"name": "stale-device", "wg_pubkey": "CCCC"},
@@ -19,6 +20,8 @@ cat > "$tmp/devices.json" <<'EOF'
 EOF
 
 # fixed "now" for determinism: 1000000000
+# spotifypi: hub, has NO peer entry in its own dump (peers are others
+#   connecting to it, not itself) -> must still report online=true
 # legion: handshake 60s ago -> online
 # tank:   handshake 170s ago -> online (just under 180s threshold)
 # stale-device: handshake 300s ago -> offline
@@ -35,6 +38,10 @@ EOF
 
 actual="$(python3 "$REPO_DIR/scripts/compute_status.py" "$tmp/devices.json" --now 1000000000 < "$tmp/dump.txt")"
 expected='[
+  {
+    "name": "spotifypi",
+    "online": true
+  },
   {
     "name": "legion",
     "online": true
