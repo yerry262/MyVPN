@@ -314,6 +314,25 @@ setup_claude() {
       echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
   fi
 
+  # Jerry's Favs — same alias block pushed to every mesh box's ~/.bashrc
+  # (see ~/.claude/skills/vpn-sync-bashrc); CC itself intentionally varies
+  # per box elsewhere, default to a plain `cd ~` for a fresh install here.
+  if ! grep -q 'alias CCD=' "$HOME/.bashrc" 2>/dev/null; then
+    cat >> "$HOME/.bashrc" <<'BASHRC_EOF'
+
+# --- Jerry's Favs ---
+alias bashrc='vi ~/.bashrc'
+alias src='source ~/.bashrc'
+alias CC='cd ~'
+alias CCRC='claude --rc'
+alias CCD='claude --dangerously-skip-permissions'
+alias CCDW='CCD -w'
+alias CCDR='CCD -r'
+alias CCE='vi ~/.claude/settings.json'
+BASHRC_EOF
+    log "added CC/CCD/CCE shell aliases to ~/.bashrc"
+  fi
+
   if [ ! -f "$HOME/.claude/.credentials.json" ]; then
     if [ "${MYVPN_NONINTERACTIVE:-}" = 1 ]; then
       log "Claude needs a one-time interactive login: run 'claude', complete OAuth, then re-run ./install.sh --with-claude"
