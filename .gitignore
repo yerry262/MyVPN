@@ -5,3 +5,4 @@
 !hub/*.conf
 myvpn-signer
 age.key
+.superpowers/
