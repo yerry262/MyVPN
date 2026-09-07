@@ -1,0 +1,26 @@
+[
+  {
+    "name": "spotifypi",
+    "online": true
+  },
+  {
+    "name": "legion",
+    "online": false
+  },
+  {
+    "name": "tank",
+    "online": false
+  },
+  {
+    "name": "ethereum-node",
+    "online": true
+  },
+  {
+    "name": "euro-laptop",
+    "online": false
+  },
+  {
+    "name": "china",
+    "online": false
+  }
+]
